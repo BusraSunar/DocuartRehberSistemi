@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<meta http-equiv="Refresh" content="3;url=/">
+<meta http-equiv="Refresh" content="3;url=/Manage/">
 <body>
 	<h1 style="color:red;">INVALID NAME OR EMAIL</h1>
 	

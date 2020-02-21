@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import = "java.sql.*"  import = "java.util.*"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
     <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 	  <!DOCTYPE html>
@@ -8,24 +8,22 @@
 	<head>
 	    <meta charset="UTF-8">
 	    
-	    <spring:url value="/resources/rehberStyle.css" var="rehberStyle" />
+	    <!--<spring:url value="/resources/rehberStyle.css" var="rehberStyle" />
 		<link href="${rehberStyle}" rel="stylesheet" />
-		
-		<script src="<c:url value="/resources/core/jquery.1.10.2.min.js" />"></script>
-		<script src="<c:url value="/resources/core/jquery.autocomplete.min.js" />"></script>
-		
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		-->
+		 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	    <link href="/rehberStyle.css" rel="stylesheet">
+	    <link href="rehberStyle.css" rel="stylesheet">
 	    <title>Rehber</title>
 	</head>
 	<body >
 	    <header >
 	        <h1 >Rehber</h1>
 	    </header>
+	  
 	    
 	    <div class="search-box">
     		<form action="display" method="post" class="form" onsubmit="">
@@ -51,6 +49,7 @@
 					<button type="submit"  class="btn4" >Update</button>
 			</form>	
         </div>
+        
 	        <table id="rehber" align="center"  >
 		        <thead>
 		            <tr bgcolor="#333">

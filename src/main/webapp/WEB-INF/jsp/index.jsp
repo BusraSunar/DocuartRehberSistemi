@@ -7,15 +7,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+     <link href="style.css" rel="stylesheet">
     <title>Sign In</title>
-
-    
-    <link href="/style.css" rel="stylesheet">
    
   </head>
   <body>
     <header>
       <h1>Sign In</h1>
+  	
     </header>
     <section class="container">
       <form id="my-form" action="signIn" >

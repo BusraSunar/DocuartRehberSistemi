@@ -34,6 +34,7 @@ public class UserController {
 	
 	@RequestMapping("/")
 	public String home(){
+		
 		return "index";
 	}
 	@RequestMapping("/signIn")
@@ -55,14 +56,17 @@ public class UserController {
 	
 	@RequestMapping("/display")
 	public String displayTable(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) { //buradana devam ettt
+		
 		List<User> list=new ArrayList<User>();
 		ArrayList<String> name=new ArrayList<String>();
         String queryName = request.getParameter("searchBarName");
-        
+
 		if(valid.equals(true)) {
 			if(queryName!=null && queryName.length()>0 ) {
+				
 				list=service.findName(queryName);
-				model.addAttribute("listUser", list);
+				//model.addAttribute("listUser", list);
+				request.getSession().setAttribute("listUser", list);
 				
 			}else {
 
@@ -70,8 +74,9 @@ public class UserController {
 				for(int i=0;i<list.size();i++) {
 					name.add(list.get(i).getName());
 				}
-				session.setAttribute("listName", name);
-				model.addAttribute("listUser", list);
+				request.getSession().setAttribute("listName", name);
+				request.getSession().setAttribute("listUser", list);
+				
 			}
 
 				
@@ -106,13 +111,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value ="/fill/{id}", method = RequestMethod.POST)
-	public String fillTextBox(@PathVariable(value="id") Long id, Model model, HttpSession session) {
+	public String fillTextBox(@PathVariable(value="id") Long id, Model model, HttpServletRequest request) {
 		editId=id;
 		User user = service.get(editId);
 		editName = user.getName();
 		editEmail = user.getEmail();
-		session.setAttribute("boxName", editName);
-		session.setAttribute("boxEmail", editEmail);
+		request.getSession().setAttribute("boxName", editName);
+		request.getSession().setAttribute("boxEmail", editEmail);
+
 
 	    return "redirect:/display";       
 	}
