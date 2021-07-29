@@ -1,29 +1,32 @@
 # DocuartRehberSistemi
 
 
-**ADD ART**
-![](addArt1.png)
+**LOGIN PAGE**
+![](img/Login.png)
 
-**ADD ART**
-![](addArt2.png)
+**CHANGE PASSWORD PAGE**
+![](img/ŞifreDeğiştirme.png)
 
-**ART**
-![](art1.png)
+**PERSONEL EKLE**
+![](img/PersonelEkle.png)
 
-**ART DEVAM**
-![](art2.png)
+**FIRMA EKLE**
+![](img/FirmaEkle.png)
 
-**ARTIST**
-![](artist.png)
+**PARAMETRE LISTESI**
+![](img/parametreListesi.png)
 
-**CHANGE PASSWORD**
-![](changePassword.png)
+**REHBER**
+![](img/Rehber.png)
 
-**FORGOT PASSWORD**
-![](forgotPassword.png)
+**REHBER EKLE **
+![](img/RehberEkle.png)
 
-**LOGIN**
-![](login.png)
+**SORGULA**
+![](img/Sorgula.png)
 
-**REGISTER**
-![](register.png)
+**VERI GIRISI EXCEL**
+![](img/VeriGirişiExcel.png)
+
+**YENI PARAMETRE**
+![](img/YeniParametre.png)
