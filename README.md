@@ -19,7 +19,7 @@
 **REHBER**
 ![](img/Rehber.png)
 
-**REHBER EKLE **
+**REHBER EKLE**
 ![](img/RehberEkle.png)
 
 **SORGULA**
