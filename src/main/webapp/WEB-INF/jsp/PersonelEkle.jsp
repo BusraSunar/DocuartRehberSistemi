@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -29,30 +31,38 @@
 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
-
                     <li class="menu-title">Personel</li>
                     <!-- /.menu-title -->
-
                     <li class="active">
-                        <a href="PersonelEkle.html"><i class="menu-icon fa fa-users"></i>Personel Ekle</a>
-
+                        <a href="listele"><i class="menu-icon fa fa-users"></i>Personel Ekle</a>
                     </li>
-
                     <li class="menu-title">Rehber</li>
+                    <!-- /.menu-title -->
+                    <li><a href="rehberEkleSayfasi"><i class="menu-icon fa fa-edit"></i>Yeni Kayıt</a></li>
+                    <li><a href="ara"><i class="menu-icon fa fa-book"></i>Rehber</a></li>
+                    <!-- Son kullanılacak!-->
+                    
+                    <li class="menu-title">Parametreler</li>
                     <!-- /.menu-title -->
 
 
-                    <li><a href="RehberEkle.html"><i class="menu-icon fa fa-edit"></i>Yeni Kayıt</a></li>
-                    <li><a href="Rehber.html"><i class="menu-icon fa fa-book"></i>Rehber</a></li>
+                    <li><a href="bolumListele"><i class="menu-icon fa fa-list-ol"></i>Parametre Listesi</a></li>
+                    <li><a href="listeleFirma"><i class="menu-icon fa fa-suitcase"></i>Firma Ekle</a></li>
 
-                    <!-- Son kullanılacak!-->
+					<c:if test = "${department == 'Muhasebe'}">
+	                    <li class="menu-title">Muhasebe</li>
+	                    <!-- /.menu-title -->
+	
+	                    <li ><a href="buttonsSorgula"><i class="menu-icon fa fa-search"></i>Detaylı Sorgulama</a></li>
+	
+	                    <li><a href="listeleExcel"><i class="menu-icon fa fa-keyboard-o"></i>Veri Girişi</a></li>
+                    </c:if>
+                    
                     <!--<li class="menu-title">Ekstra</li>
 
-                 <li class="menu-item-has-children dropdown">
+                 	<li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Giriş</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
@@ -61,7 +71,6 @@
                         </ul>
                     </li>-->
                     <!-- Son kullanılacak!-->
-
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -69,19 +78,14 @@
     </aside>
     <!-- /#left-panel -->
     <!-- Left Panel -->
-
-
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
-
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="Anasayfa.html">
-                        <img src="images/doc_tr.png" alt="Logo" style="height: 40px"></a>
-                    <a class="navbar-brand hidden" href="./">
-                        <img src="images/doc_tr_2.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="images/doc_tr.png" alt="Logo" style="height: 40px"></a>
+                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -95,31 +99,87 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-
-                        
-                    </div>
-
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
-                        </a>
-
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i>Profilim</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notification <span class="count">1</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-cog"></i>Ayarlar</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Çıkış</a>
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger">3</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                                <p class="red">You have 3 Notification</p>
+                                <a class="dropdown-item media" href="#">
+                                    <i class="fa fa-check"></i>
+                                    <p>Server #1 overloaded.</p>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <i class="fa fa-info"></i>
+                                    <p>Server #2 overloaded.</p>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <i class="fa fa-warning"></i>
+                                    <p>Server #3 overloaded.</p>
+                                </a>
+                            </div>
                         </div>
+                        <div class="dropdown for-message">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary">4</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have 4 Mails</p>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Jonathan Smith</span>
+                                        <span class="time float-right">Just now</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/2.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Jack Sanders</span>
+                                        <span class="time float-right">5 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/3.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Cheryl Wheeler</span>
+                                        <span class="time float-right">10 minutes ago</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" src="images/avatar/4.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Rachel Santos</span>
+                                        <span class="time float-right">15 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                   <div class="user-area dropdown float-right">
+                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                         </a>
+                         <div class="user-menu dropdown-menu">
+                             <a class="nav-link" href="#"><i class="fa fa-user"></i>Profilim</a>
+                             <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notification <span class="count">1</span></a>
+                             <a class="nav-link" href="#"><i class="fa fa-cog"></i>Ayarlar</a>
+							 <a class="nav-link" href="sifreDegistir"><i class="fa fa-lock"></i>Şifremi Değiştir</a>
+                             <a class="nav-link" href="logout"><i class="fa fa-power-off"></i>Çıkış</a>
+                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </header><!-- /header -->
+        
         <!-- /header -->
         <!-- Header-->
-
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
@@ -135,7 +195,6 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Anasayfa</a></li>
-
                                     <li class="active">Personel Ekle</li>
                                 </ol>
                             </div>
@@ -144,67 +203,74 @@
                 </div>
             </div>
         </div>
-
         <div class="content">
             <div class="animated fadeIn">
-
-                <div class="row">
-
+                <div class="row">	
                     <div class="col-xs-12 col-sm-12">
                         <div class="card">
-
-                            <div class="card-body card-block">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
-
-                                            <label class=" form-control-label">Ad</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
-                                                <input class="form-control">
-                                            </div>
-                                            <small class="form-text text-muted">örn.</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-
-                                            <label class=" form-control-label">Soyad</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
-                                                <input class="form-control">
-                                            </div>
-                                            <small class="form-text text-muted">örn.</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="form-group ">
-
-                                            <label class=" form-control-label">Durum</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>
-                                                <select name="select" id="select" class="form-control ">
-                                                    <option value="0"></option>
-                                                    <option value="1">Aktif</option>
-                                                    <option value="2">Pasif</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="margin-left: 20px; margin-right: 20px">
-                                    <hr />
-                                </div>
-
-                                <div class="card-body" style="text-align: right">
-                                    <button type="button" class="btn btn-outline-success">Kaydet</button>
-                                    <button type="button" class="btn btn-outline-primary">Güncelle</button>
-                                    <button type="button" class="btn btn-outline-danger">Sil</button>
-                                </div>
-                            </div>
+							<form method="post" action="Buttons">
+	                            <div class="card-body card-block">
+	                                <div class="row">
+	                                    <div class="col-4">
+	                                        <div class="form-group">
+	                                            <label class=" form-control-label">Ad</label>
+	                                            <div class="input-group">
+	                                                <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
+	                                                <input class="form-control" name="ad" value="${boxName}">
+	                                            </div>
+	                                            <small class="form-text text-muted">örn.</small>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <div class="form-group">
+	                                            <label class=" form-control-label">Soyad</label>
+	                                            <div class="input-group">
+	                                                <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
+	                                                <input class="form-control" name="soyad" value="${boxSurname}">
+	                                            </div>
+	                                            <small class="form-text text-muted">örn.</small>
+	                                        </div>
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <div class="form-group ">
+	                                            <label class=" form-control-label">Departman</label>
+	                                            <div class="input-group">
+	                                                <div class="input-group-addon"><i class="fa fa-address-card"></i></div>
+	                                                <select name="departman"  class="form-control " >
+	                                                    <option value="${dropDownDepartman}"></option>
+	                                                    <c:forEach items="${departmanList}" var="list">
+			                                               			<option value="${list.departman}">${list.departman}</option>
+	                                       				</c:forEach>
+	                                                </select>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                     <div class="col-4">
+	                                        <div class="form-group ">
+	                                            <label class=" form-control-label">Durum</label>
+	                                            <div class="input-group">
+	                                                <div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>
+	                                                <select name="durum" id="select" class="form-control " >
+	                                                    <option value="${dropDown}"></option>
+	                                                    <option value="Aktif">Aktif</option>
+	                                                    <option value="Pasif">Pasif</option>
+	                                                </select>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div style="margin-left: 20px; margin-right: 20px">
+	                                    <hr />
+	                                </div>
+	                                <div class="card-body" style="text-align: right">
+	                                    <input type="submit" class="btn btn-outline-success" name="Kaydet" value="Kaydet" <c:if test="${kaydet == true}"><c:out value="disabled='disabled'"/></c:if>/>
+	                                    <input type="submit" class="btn btn-outline-primary" name="Güncelle" value = "Güncelle" <c:if test="${guncelle == true}"><c:out value="disabled='disabled'"/></c:if>/>
+	                                    <input type="submit" class="btn btn-outline-danger" name="Temizle" value = "Temizle"/>
+	                                </div>
+	                            </div>
+                            </form>
                         </div>
                     </div>
-
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -214,62 +280,35 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-
                                             <th scope="col">Ad</th>
                                             <th scope="col">Soyad</th>
+                                            <th scope="col">Departman</th>
                                             <th scope="col">Durum</th>
                                             <th scope="col" style="width:15%"></th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>Otto</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                                <label>
-                                                    <a href='#' class="fa fa-times"></a>
-                                                    <a href='#' class="fa fa-pencil"></a>
-                                                    <a href='#' class="fa fa-check"></a>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>Thornton</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                                <label>
-                                                    <a href='#' class="fa fa-times"></a>
-                                                    <a href='#' class="fa fa-pencil"></a>
-                                                    <a href='#' class="fa fa-check"></a>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Otto</td>
-                                            <td>the Bird</td>
-                                            <td>Pasif</td>
-                                            <td>
-                                                <label>
-                                                    <a href='#' class="fa fa-times"></a>
-                                                    <a href='#' class="fa fa-pencil"></a>
-                                                    <a href='#' class="fa fa-check"></a>
-                                                </label>
-                                            </td>
-                                        </tr>
+	                                    <c:forEach items="${listPersonel}" var="list">
+	                                        <tr>
+	                                            <td><c:out value="${list.ad}"/></td>
+	                                            <td><c:out value="${list.soyad}"/></td>
+	                                            <td><c:out value="${list.departman}"/></td>
+	                                            <td><c:out value="${list.durum}"/></td>
+	                                            <td>
+	                                                <label>
+	                                                    <!--  <a href="delete?id=${list.id}" class="fa fa-times"></a>-->
+	                                                    <a href="fill?id=${list.id}" class="fa fa-pencil"></a>
+	                                                    <!-- <a href="fillTextBox?id=${list.id}" class="fa fa-check"></a>--><!-- dont know what this is for -->
+	                                                </label>
+	                                            </td>
+                                        	</tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
-
-
             </div>
             <!-- .animated -->
         </div>
@@ -281,15 +320,12 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2020 <a href="https://docuart.com.tr">Docuart</a>
-
                     </div>
                     <div class="col-sm-6 text-right">
                     </div>
                 </div>
             </div>
         </footer>
-
-
     </div>
     <!-- /#right-panel -->
 
@@ -302,7 +338,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/lib/chosen/chosen.jquery.min.js"></script>
-
+ 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         jQuery(document).ready(function () {
             jQuery(".standardSelect").chosen({
@@ -311,6 +348,8 @@
                 width: "100%"
             });
         });
+        
+        
 </script>
 
 </body>

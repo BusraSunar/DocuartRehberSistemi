@@ -1,26 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    
     <title>Rehber</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- for autocomplete -->
+  	<link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
@@ -31,30 +32,38 @@
 
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
-
                     <li class="menu-title">Personel</li>
                     <!-- /.menu-title -->
-
                     <li>
-                        <a href="PersonelEkle.html"><i class="menu-icon fa fa-users"></i>Personel Ekle</a>
-
+                        <a href="listele"><i class="menu-icon fa fa-users"></i>Personel Ekle</a>
                     </li>
-
                     <li class="menu-title">Rehber</li>
+                    <!-- /.menu-title -->
+                    <li><a href="rehberEkleSayfasi"><i class="menu-icon fa fa-edit"></i>Yeni Kayıt</a></li>
+                    <li class="active"><a href="ara"><i class="menu-icon fa fa-book"></i>Rehber</a></li>
+                    <!-- Son kullanılacak!-->
+                    
+                    <li class="menu-title">Parametreler</li>
                     <!-- /.menu-title -->
 
 
-                    <li><a href="RehberEkle.html"><i class="menu-icon fa fa-edit"></i>Yeni Kayıt</a></li>
-                    <li class="active"><a href="Rehber.html"><i class="menu-icon fa fa-book"></i>Rehber</a></li>
+                    <li><a href="bolumListele"><i class="menu-icon fa fa-list-ol"></i>Parametre Listesi</a></li>
+                    <li><a href="listeleFirma"><i class="menu-icon fa fa-suitcase"></i>Firma Ekle</a></li>
 
-                    <!-- Son kullanılacak!-->
+                    <c:if test = "${department == 'Muhasebe'}">
+	                    <li class="menu-title">Muhasebe</li>
+	                    <!-- /.menu-title -->
+	
+	                    <li ><a href="buttonsSorgula"><i class="menu-icon fa fa-search"></i>Detaylı Sorgulama</a></li>
+	
+	                    <li><a href="listeleExcel"><i class="menu-icon fa fa-keyboard-o"></i>Veri Girişi</a></li>
+                    </c:if>
+                    
+                    
                     <!--<li class="menu-title">Ekstra</li>
-
-                 <li class="menu-item-has-children dropdown">
+                 	<li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Giriş</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
@@ -63,20 +72,15 @@
                         </ul>
                     </li>-->
                     <!-- Son kullanılacak!-->
-
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
     </aside>
     <!-- /#left-panel -->
-
     <!-- Left Panel -->
-
     <!-- Right Panel -->
-
     <div id="right-panel" class="right-panel" >
-
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
@@ -96,8 +100,7 @@
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
-
-                        <!--<div class="dropdown for-notification">
+                        <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger">3</span>
@@ -117,9 +120,9 @@
                                     <p>Server #3 overloaded.</p>
                                 </a>
                             </div>
-                        </div>-->
+                        </div>
 
-                        <!--<div class="dropdown for-message">
+                        <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
                                 <span class="count bg-primary">4</span>
@@ -163,30 +166,25 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>-->
-                    </div>
-
-                    <div class="user-area dropdown float-right">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
-                            </a>
-
-                            <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="#"><i class="fa fa-user"></i>Profilim</a>
-
-                                <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notification <span class="count">1</span></a>
-
-                                <a class="nav-link" href="#"><i class="fa fa-cog"></i>Ayarlar</a>
-
-                                <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Çıkış</a>
-                            </div>
                         </div>
+                    </div>
+                    <div class="user-area dropdown float-right">
+                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                         </a>
+                         <div class="user-menu dropdown-menu">
+                             <a class="nav-link" href="#"><i class="fa fa-user"></i>Profilim</a>
+                             <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notification <span class="count">1</span></a>
+                             <a class="nav-link" href="#"><i class="fa fa-cog"></i>Ayarlar</a>
+							 <a class="nav-link" href="sifreDegistir"><i class="fa fa-lock"></i>Şifremi Değiştir</a>
+                             <a class="nav-link" href="logout"><i class="fa fa-power-off"></i>Çıkış</a>
+                         </div>
+                    </div>
                 </div>
             </div>
         </header>
         <!-- /header -->
         <!-- Header-->
-
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
@@ -210,26 +208,23 @@
                 </div>
             </div>
         </div>
-
         <div class="content">
             <div class="animated fadeIn">
+            <form action="ara" method="post">
                 <div class="row">
-
                     <div class="col-xs-7 col-sm-7">
                         <div class="card">
-
                             <div class="card-body card-block">
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="form-group ">
-
-
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
-                                                <select name="select" id="select" class="form-control ">
-                                                    <option value="0">Genel</option>
-                                                    <option value="1">...</option>
-                                                    <option value="2">...</option>
+                                                <select name="sec" id="select" class="form-control ">
+                                                    <option value="Genel">Genel</option>
+                                                    <c:forEach items="${adSoyad}" var="list">
+                                               			<option value="${list}">${list}</option>
+                                       				</c:forEach>
                                                 </select>
                                             </div>
                                         </div>
@@ -238,94 +233,100 @@
                                         <div class="form-group">
                                             <div class="col col-md-12">
                                                 <div class="input-group">
-
-                                                    <input type="text" id="input1-group2" name="input1-group2" placeholder="" class="form-control" />
+                                                    <input type="text" id="searchBar" name="searchBar" placeholder="" class="form-control" />
                                                     <div class="input-group-btn">
-                                                        <button class="btn btn-primary">
-                                                            <i class="fa fa-search"></i>Ara
-                                               
-                                                        </button>
+	                                                    <button class="btn btn-primary" type="submit" >
+	                                                        <i class="fa fa-search"></i>Ara
+	                                                    </button> 
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>                                    
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
+            </form>
                 <div class="row">
-
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fa fa-user"></i><strong class="card-title pl-2">Profil</strong>
-                            </div>
-                            <div class="card-body">
-                                <div class="mx-auto d-block">
-                                    <img class="rounded-circle mx-auto d-block" src="images/admin.jpg" alt="Card image cap">
-                                    <h5 class="text-sm-center mt-2 mb-1"><i class="fa fa-user"></i>&nbsp;Mert Savaş Özçelik</h5>
-                                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i>&nbsp;Kırgaz / Kırşehir</div>
-                                    <div class="location text-sm-center"><i class="fa fa-envelope"></i>&nbsp; info@kirgaz.com.tr</div>
-                                </div>
-                                <hr>
-                                <div class="card-text text-sm-left">
-                                    <footer class="twt-footer">
-
-                                        <b>İş Tel:</b>
-                                        <span class="pull-right">0312 222 22 22 / 555
-                                </span>
-                                        <br />
-                                        <b>Cep Tel:</b>
-                                        <span class="pull-right">0312 222 22 22
-                                </span>
-
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
+					<c:forEach items="${listAssocaites}" var="list">
+	                    <div class="col-md-4">
+	                        <div class="card">
+	                            <div class="card-header">
+	                                <i class="fa fa-user"></i><strong class="card-title pl-2">Profil</strong>
+	                            </div>
+	                            <div class="card-body">
+	                                <div class="mx-auto d-block">
+	                                    <img class="rounded-circle mx-auto d-block" src="images/admin.jpg" alt="Card image cap">
+	                                    <h5 class="text-sm-center mt-2 mb-1"><i class="fa fa-user"></i>&nbsp;${list.ad} ${list.soyad }</h5>
+	                                    <div class="location text-sm-center"><i class="fa fa-map-marker"></i>&nbsp;${list.sube}</div>
+	                                    <div class="location text-sm-center"><i class="fa fa-envelope"></i>&nbsp; ${list.email }</div>
+	                                </div>
+	                                <hr>
+	                                <div class="card-text text-sm-left">
+	                                    <footer class="twt-footer">
+	                                        <b>İş Tel:</b>
+	                                        <span class="pull-right">${list.isTelefonu} / ${list.dahili}</span>
+	                                        <br />
+	                                        <b>Cep Tel:</b>
+	                                        <span class="pull-right">${list.cepTelefonu}</span>
+	                                    </footer>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+                    </c:forEach>
                 </div>
                 <!-- .row -->
             </div>
             <!-- .animated -->
         </div>
         <!-- .content -->
-
         <div class="clearfix"></div>
-
         <footer class="site-footer">
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2020 <a href="https://docuart.com.tr">Docuart</a>
-
                     </div>
-                    <div class="col-sm-6 text-right">
-                    </div>
+                    <div class="col-sm-6 text-right"></div>
                 </div>
             </div>
         </footer>
-
-
     </div>
     <!-- /#right-panel -->
-
     <!-- Right Panel -->
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
+  	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+ 		$( document ).ready(function() {
 
-
+ 			var nameArray = new Array();
+ 			
+ 			<c:forEach var="row" items="${listRehberName}">
+ 				nameArray.push('${row}');
+ 			</c:forEach>
+			$( function() {
+			   
+			    $( "#searchBar" ).autocomplete({
+			      source: nameArray,
+			      messages: {
+			          noResults: '',
+			          results: function(amount) {
+			              return  ''
+			          }
+			      } 
+			    });
+			  } );
+			
+ 		});		
+	</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,27 +40,35 @@
 
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-
-
                     <li class="menu-title">Personel</li>
                     <!-- /.menu-title -->
-
                     <li>
-                        <a href="PersonelEkle.html"><i class="menu-icon fa fa-users"></i>Personel Ekle</a>
-
+                        <a href="listele"><i class="menu-icon fa fa-users"></i>Personel Ekle</a>
                     </li>
-
                     <li class="menu-title">Rehber</li>
+                    <!-- /.menu-title -->
+                    <li class="active"><a href="rehberEkleSayfasi"><i class="menu-icon fa fa-edit"></i>Yeni Kayıt</a></li>
+                    <li><a href="ara"><i class="menu-icon fa fa-book"></i>Rehber</a></li>
+                    <!-- Son kullanılacak!-->
+                    
+                    <li class="menu-title">Parametreler</li>
                     <!-- /.menu-title -->
 
 
-                    <li class="active"><a href="RehberEkle.html"><i class="menu-icon fa fa-edit"></i>Yeni Kayıt</a></li>
-                    <li><a href="Rehber.html"><i class="menu-icon fa fa-book"></i>Rehber</a></li>
+                    <li><a href="bolumListele"><i class="menu-icon fa fa-list-ol"></i>Parametre Listesi</a></li>
+                    <li><a href="listeleFirma"><i class="menu-icon fa fa-suitcase"></i>Firma Ekle</a></li>
 
-                    <!-- Son kullanılacak!-->
+                    <c:if test = "${department == 'Muhasebe'}">
+	                    <li class="menu-title">Muhasebe</li>
+	                    <!-- /.menu-title -->
+	
+	                    <li ><a href="buttonsSorgula"><i class="menu-icon fa fa-search"></i>Detaylı Sorgulama</a></li>
+	
+	                    <li><a href="listeleExcel"><i class="menu-icon fa fa-keyboard-o"></i>Veri Girişi</a></li>
+                    </c:if>
+                    
                     <!--<li class="menu-title">Ekstra</li>
-
-                 <li class="menu-item-has-children dropdown">
+                 	<li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Giriş</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
@@ -68,7 +77,6 @@
                         </ul>
                     </li>-->
                     <!-- Son kullanılacak!-->
-
                 </ul>
             </div>
                 <!-- /.navbar-collapse -->
@@ -76,11 +84,8 @@
         </aside>
         <!-- /#left-panel -->
         <!-- Left Panel -->
-
-
         <!-- Right Panel -->
         <div id="right-panel" class="right-panel">
-
             <!-- Header-->
             <header id="header" class="header">
                 <div class="top-left">
@@ -100,8 +105,7 @@
                                     <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                                 </form>
                             </div>
-
-                            <!--<div class="dropdown for-notification">
+                            <div class="dropdown for-notification">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
                                     <span class="count bg-danger">3</span>
@@ -121,9 +125,9 @@
                                         <p>Server #3 overloaded.</p>
                                     </a>
                                 </div>
-                            </div>-->
+                            </div>
 
-                            <!--<div class="dropdown for-message">
+                            <div class="dropdown for-message">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope"></i>
                                     <span class="count bg-primary">4</span>
@@ -167,22 +171,20 @@
                                         </div>
                                     </a>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
-
                         <div class="user-area dropdown float-right">
                             <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                             </a>
-
                             <div class="user-menu dropdown-menu">
                                 <a class="nav-link" href="#"><i class="fa fa-user"></i>Profilim</a>
-
                                 <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notification <span class="count">1</span></a>
-
                                 <a class="nav-link" href="#"><i class="fa fa-cog"></i>Ayarlar</a>
-
-                                <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Çıkış</a>
+                                <a class="nav-link" href="sifreDegistir"><i class="fa fa-lock"></i>Şifremi Değiştir</a>
+                                <a class="nav-link" href="logout"><i class="fa fa-power-off"></i>Çıkış</a>
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -190,7 +192,6 @@
             </header>
             <!-- /header -->
             <!-- Header-->
-
             <div class="breadcrumbs">
                 <div class="breadcrumbs-inner">
                     <div class="row m-0">
@@ -214,24 +215,20 @@
                     </div>
                 </div>
             </div>
-
             <div class="content">
                 <div class="animated fadeIn">
-                    <form id="rehberekle" runat="server">
+                    <form id="rehberekle" runat="server" method="post" action="rehberEkleButtons">
                         <div class="row">
-
                             <div class="col-xs-6 col-sm-6">
                                 <div class="card">
-
                                     <div class="card-body card-block">
-
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label class=" form-control-label">Ad</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                                        <input class="form-control">
+                                                        <input class="form-control" name = "ad" value="${adBox}">
                                                     </div>
                                                     <small class="form-text text-muted">örn. xxxxx</small>
                                                 </div>
@@ -241,7 +238,7 @@
                                                     <label class=" form-control-label">Soyad</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                                        <input class="form-control">
+                                                        <input class="form-control" name = "soyad"  value="${soyadBox}">
                                                     </div>
                                                     <small class="form-text text-muted">örn. xxxxx</small>
                                                 </div>
@@ -253,7 +250,7 @@
                                                     <label class=" form-control-label">Firma Adı</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-building-o"></i></div>
-                                                        <input class="form-control">
+                                                        <input class="form-control" name="firmaAdi"  value="${firmaAdiBox}">
                                                     </div>
                                                     <small class="form-text text-muted">örn. xxxxx xxxx xxx</small>
                                                 </div>
@@ -263,7 +260,7 @@
                                                     <label class=" form-control-label">Şube</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
-                                                        <input class="form-control">
+                                                        <input class="form-control" name="sube"  value="${subeBox}">
                                                     </div>
                                                     <small class="form-text text-muted">örn. xxxxx</small>
                                                 </div>
@@ -273,7 +270,7 @@
                                             <label class=" form-control-label">Görevi</label>
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-suitcase"></i></div>
-                                                <input class="form-control">
+                                                <input class="form-control" name ="gorevi"  value="${goreviBox}">
                                             </div>
                                             <small class="form-text text-muted">örn. xxxxx xxxxxxx</small>
                                         </div>
@@ -281,38 +278,31 @@
                                             <label class=" form-control-label">E- mail</label>
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                                <input class="form-control">
+                                                <input class="form-control" name ="email"  value="${emailBox}">
                                             </div>
                                             <small class="form-text text-muted">örn. xxxxx@xxxx.com</small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-xs-6 col-sm-6">
                                 <div class="card">
-
                                     <div class="card-body card-block">
-
-
                                         <div class="form-group">
                                             <label class=" form-control-label">Cep Telefonu</label>
                                             <div class="input-group">
                                                 <div class="input-group-addon"><i class="fa fa-mobile"></i></div>
-                                                <input class="form-control">
+                                                <input class="form-control" name="cepTelefonu"  value="${cepTelefonuBox}">
                                             </div>
                                             <small class="form-text text-muted">örn. 0 5xx xxx xx xx</small>
                                         </div>
                                         <div class="form-group">
-
-
                                             <div class="row">
                                                 <div class="col-8">
-
                                                     <label class=" form-control-label">İş Telefonu</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                                                        <input class="form-control">
+                                                        <input class="form-control" name="isTelefonu"  value="${isTelefonuBox}">
                                                     </div>
                                                     <small class="form-text text-muted">örn. 0 (xxx) xxx xx xx</small>
                                                 </div>
@@ -320,48 +310,58 @@
                                                     <label class=" form-control-label">Dahili - 1</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="fa fa-plus"></i></div>
-                                                        <input class="form-control">
+                                                        <input class="form-control" name = "dahili"  value="${dahiliBox}">
                                                     </div>
                                                     <small class="form-text text-muted">örn. xxxxx</small>
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        <div class="form-group ">
-
-                                            <label class=" form-control-label">Personel</label>
-                                                 <div class="input-group">
-                                             <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
-                                            <select name="select" id="select" class="form-control col-4">
-                                                <option value="0">Genel</option>
-                                                <option value="1">Option #1</option>
-                                                <option value="2">Option #2</option>
-                                                <option value="3">Option #3</option>
-                                            </select>
-                                           </div>
-                                        </div>
+										<div class="row">
+											<div class="col-8">
+		                                        <div class="form-group ">
+		                                            <label class=" form-control-label">Personel</label>
+		                                                 <div class="input-group">
+		                                             <div class="input-group-addon"><i class="fa fa-smile-o"></i></div>
+		                                            <select name="kim" id="select" class="form-control col-12">
+		                                                <option value="Genel">Genel</option>
+		                                           		<c:forEach items="${adSoyad}" var="list">
+		                                               		<option value="${list}">${list}</option>
+		                                       			</c:forEach>
+		                                            </select>
+		                                           </div>
+		                                        </div>
+	                                         </div>
+	                                        <div class="col-4">
+		                                        <div class="form-group ">
+		                                            <label class=" form-control-label">Durum</label>
+		                                            <div class="input-group">
+		                                                <div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>
+		                                                <select name="durumRehber" id="select" class="form-control " >
+		                                                    <option value="${dropdownRehber}"></option>
+		                                                    <option value="Aktif">Aktif</option>
+		                                                    <option value="Pasif">Pasif</option>
+		                                                </select>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+                                        </div>                              
                                         <div style="margin-left: 20px; margin-right: 20px;margin-top:57px">
                                             <hr />
                                         </div>
-
-                                        <div class="card-body" style="text-align: right">
-                                            <button type="button" class="btn btn-outline-success">Kaydet</button>
-                                            <button type="button" class="btn btn-outline-primary">Güncelle</button>
-                                            <button type="button" class="btn btn-outline-danger">Sil</button>
+                                        <div class="card-body" style="text-align: right">                                       
+                                           <input type="submit" class="btn btn-outline-success" name="KaydetRehber" value="Kaydet" <c:if test="${kaydetRehber == true}"><c:out value="disabled='disabled'"/></c:if>/>
+	                                    	<input type="submit" class="btn btn-outline-primary" name="GüncelleRehber" value = "Güncelle" <c:if test="${guncelleRehber == true}"><c:out value="disabled='disabled'"/></c:if>/>
+	                                    	<input type="submit" class="btn btn-outline-danger" name="TemizleRehber" value = "Temizle"/>
                                         </div>
                                     </div>
-
                                     <!--</div>
-                             <div class="card" style="text-align: right">
-
-                                <div class="card-body">
-                                    <button type="button" class="btn btn-outline-success">Kaydet</button>
-                                    <button type="button" class="btn btn-outline-primary">Güncelle</button>
-                                    <button type="button" class="btn btn-outline-danger">Sil</button>
-
-                                </div>
-                            </div>-->
+			                             <div class="card" style="text-align: right">
+			                                <div class="card-body">
+			                                    <button type="button" class="btn btn-outline-success">Kaydet</button>
+			                                    <button type="button" class="btn btn-outline-primary">Güncelle</button>
+			                                    <button type="button" class="btn btn-outline-danger">Sil</button>
+			                                </div>
+		                            </div>-->
                                 </div>
                     </form>
                 </div>
@@ -372,7 +372,6 @@
         <div class="content">
             <div class="animated fadeIn">
                 <div class="row">
-
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
@@ -388,63 +387,34 @@
                                             <th>E-mail</th>
                                             <th>Cep Telefonu</th>
                                             <th>İş Telefonu</th>
+                                            <th>Durum</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>$320,800</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td class="orta">
-                                                <label>
-                                                    <a href='#' class="fa fa-times"></a>
-                                                    <a href='#' class="fa fa-pencil"></a>
-                                                    <a href='#' class="fa fa-check"></a>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>$170,750</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td class="orta">
-                                                <label>
-                                                    <a href='#' class="fa fa-times"></a>
-                                                    <a href='#' class="fa fa-pencil"></a>
-                                                    <a href='#' class="fa fa-check"></a>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>$86,000</td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td class="orta">
-                                                <label>
-                                                    <a href='#' class="fa fa-times"></a>
-                                                    <a href='#' class="fa fa-pencil"></a>
-                                                    <a href='#' class="fa fa-check"></a>
-                                                </label>
-                                            </td>
-                                        </tr>
-
+                                    	<c:forEach items="${listRehber}" var="list">
+	                                        <tr>
+	                                            <td>${list.firmaAdi }</td>
+	                                            <td>${list.ad }</td>
+	                                            <td>${list.soyad }</td>
+	                                            <td>${list.email }</td>
+	                                            <td>${list.cepTelefonu }</td>
+	                                            <td>${list.isTelefonu }</td>
+	                                            <td>${list.durum}</td>
+	                                            <td class="orta">
+	                                                <label>
+	                                                    <!-- <a href="deleteRehber?id=${list.id}" class="fa fa-times"></a> -->
+	                                                    <a href="fillRehber?id=${list.id}" class="fa fa-pencil"></a>
+	                                                    <!-- <a href="fillTextBox?id=${list.id}" class="fa fa-check"></a> --><!-- dont know what this is for -->
+	                                                </label>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
             <!-- .animated -->
@@ -457,20 +427,14 @@
                 <div class="row">
                     <div class="col-sm-6">
                         Copyright &copy; 2020 <a href="https://docuart.com.tr">Docuart</a>
-
                     </div>
                     <div class="col-sm-6 text-right">
                     </div>
                 </div>
             </div>
         </footer>
-
-
-
         <!-- /#right-panel -->
-
         <!-- Right Panel -->
-
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
@@ -478,8 +442,6 @@
         <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="assets/js/lib/chosen/chosen.jquery.min.js"></script>
-
-
         <script src="assets/js/lib/data-table/datatables.min.js"></script>
         <script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
         <script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
@@ -492,8 +454,6 @@
         <!--<script src="assets/js/init/datatables-init.js"></script>-->
         <!-- search box ve görüntülenecek satır sayısı için gerekli js-->
 
-
-
         <script>
             jQuery(document).ready(function () {
                 jQuery(".standardSelect").chosen({
@@ -502,11 +462,11 @@
                     width: "100%"
                 });
             });
-</script>
+		</script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#bootstrap-data-table-export').DataTable();
             });
-  </script>
+ 		 </script>
     </body>
 </html>
